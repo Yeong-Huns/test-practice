@@ -1,0 +1,52 @@
+spring:
+  profiles:
+    default: local # 기본 profile local 지정
+
+  datasource:
+    url: jdbc:h2:mem:~/cafeKioskKotlin
+    driver-class-name: org.h2.Driver
+    username: sa
+    password:
+
+  jpa:
+    hibernate:
+      ddl-auto: none
+
+---
+# 로컬환경
+spring:
+  config:
+    activate:
+      on-profile: local
+
+  jpa:
+    hibernate:
+      ddl-auto: create # 서버 실행시마다 DB 날림
+    show-sql: true # 날아가는 SQL 확인
+    properties:
+      hibernate:
+        format_sql: true # 포맷 맞춰줌
+    defer-datasource-initialization: true # (2.5~) Hibernate 초기화 이후 data.sql 실행(초기 데이터 세팅가능)
+
+  h2:
+    console:
+      enabled: true
+
+---
+# 테스트 환경
+spring:
+  config:
+    activate:
+      on-profile: test
+
+  jpa:
+    hibernate:
+      ddl-auto: create
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+
+  sql:
+    init:
+      mode: never
