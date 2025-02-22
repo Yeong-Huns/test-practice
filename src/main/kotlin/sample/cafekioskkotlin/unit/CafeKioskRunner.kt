@@ -2,6 +2,7 @@ package sample.cafekioskkotlin.unit
 
 import sample.cafekioskkotlin.unit.beverage.Americano
 import sample.cafekioskkotlin.unit.beverage.Latte
+import java.time.LocalDateTime
 
 /**
  *packageName    : sample.cafekioskkotlin.unit
@@ -15,7 +16,7 @@ import sample.cafekioskkotlin.unit.beverage.Latte
  */
 class CafeKioskRunner
 
-fun main(args: Array<String>) {
+fun main() {
     val cafeKiosk = CafeKiosk()
     cafeKiosk.add(Americano())
     println(">>> add Americano")
@@ -26,4 +27,6 @@ fun main(args: Array<String>) {
     val totalPrice = cafeKiosk.calculateTotal()
     println("Total Price: $totalPrice")
 
+    val order = cafeKiosk.createOrder(LocalDateTime.now())
+    println(">>> Create Order ${order.beverage} Beverages")
 }

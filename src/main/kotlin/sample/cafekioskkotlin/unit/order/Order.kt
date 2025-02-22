@@ -14,6 +14,6 @@ import java.time.LocalDateTime
  * 2025-02-21        Yeong-Huns       최초 생성
  */
 data class Order (
-    private val orderDateTime: LocalDateTime,
-    private val beverage: List<Beverage>,
+    val orderDateTime: LocalDateTime,
+    val beverage: List<Beverage>,
 )
