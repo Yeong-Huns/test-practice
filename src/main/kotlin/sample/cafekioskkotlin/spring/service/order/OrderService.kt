@@ -3,6 +3,7 @@ package sample.cafekioskkotlin.spring.service.order
 import jakarta.transaction.Transactional
 import org.springframework.stereotype.Service
 import sample.cafekioskkotlin.spring.domain.order.Order
+import sample.cafekioskkotlin.spring.domain.product.Product
 import sample.cafekioskkotlin.spring.dto.order.request.OrderCreateRequest
 import sample.cafekioskkotlin.spring.dto.order.response.OrderResponse
 import sample.cafekioskkotlin.spring.repository.order.OrderRepository
@@ -26,10 +27,18 @@ class OrderService (
 ){
     @Transactional
     fun createOrder(request : OrderCreateRequest, registeredDate: LocalDateTime) : OrderResponse {
-        val products = productRepository.findAllByProductNumberIn(request.productNumbers)
-        val order = Order.create(products, registeredDate)
+        val productNumbers = request.productNumbers
+        val duplicateProduct = findProductBy(productNumbers)
+
+        val order = Order.create(duplicateProduct, registeredDate)
         val savedOrder = orderRepository.save(order)
 
         return OrderResponse.fromOrder(savedOrder)
+    }
+
+    private fun findProductBy(productNumbers: List<String>) : List<Product> {
+        val products = productRepository.findAllByProductNumberIn(productNumbers)
+        val productMap = products.associateBy(Product::productNumber)
+        return productNumbers.map(productMap::getValue)
     }
 }

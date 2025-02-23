@@ -1,5 +1,6 @@
 package sample.cafekioskkotlin.spring.controller.product
 
+import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RestController
 import sample.cafekioskkotlin.spring.dto.product.response.ProductResponse
@@ -20,7 +21,5 @@ class ProductController (
     private val productService: ProductService
 ){
     @GetMapping("/api/v1/products/selling")
-    fun getSellingProducts() : List<ProductResponse> = productService.getSellingProduct()
-
-
+    fun getSellingProducts() : ResponseEntity<List<ProductResponse>> = ResponseEntity.ok(productService.getSellingProduct())
 }

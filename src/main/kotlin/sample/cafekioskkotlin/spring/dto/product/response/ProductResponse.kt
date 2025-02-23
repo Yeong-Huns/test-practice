@@ -1,6 +1,5 @@
 package sample.cafekioskkotlin.spring.dto.product.response
 
-import sample.cafekioskkotlin.spring.domain.orderProduct.OrderProduct
 import sample.cafekioskkotlin.spring.domain.product.Product
 import sample.cafekioskkotlin.spring.domain.product.ProductSellingType
 import sample.cafekioskkotlin.spring.domain.product.ProductType

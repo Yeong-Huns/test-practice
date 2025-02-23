@@ -1,5 +1,6 @@
 package sample.cafekioskkotlin.spring.controller.order
 
+import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
@@ -20,12 +21,12 @@ import java.time.LocalDateTime
  * 2025-02-23        Yeong-Huns       최초 생성
  */
 @RestController
-class OrderController (
+class OrderController(
     private val orderService: OrderService
-){
+) {
     @PostMapping("/api/v1/orders/new")
-    fun createOrder(@RequestBody request : OrderCreateRequest) : ResponseEntity<OrderResponse> {
+    fun createOrder(@RequestBody request: OrderCreateRequest): ResponseEntity<OrderResponse> {
         val registeredDate = LocalDateTime.now()
-        return ResponseEntity.ok(orderService.createOrder(request, registeredDate))
+        return ResponseEntity.status(HttpStatus.CREATED).body((orderService.createOrder(request, registeredDate)))
     }
 }

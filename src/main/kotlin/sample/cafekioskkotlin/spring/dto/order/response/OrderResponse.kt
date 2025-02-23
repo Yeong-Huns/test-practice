@@ -1,14 +1,6 @@
 package sample.cafekioskkotlin.spring.dto.order.response
 
-import jakarta.persistence.CascadeType
-import jakarta.persistence.EnumType
-import jakarta.persistence.Enumerated
-import jakarta.persistence.GeneratedValue
-import jakarta.persistence.GenerationType
-import jakarta.persistence.Id
-import jakarta.persistence.OneToMany
 import sample.cafekioskkotlin.spring.domain.order.Order
-import sample.cafekioskkotlin.spring.domain.order.OrderStatus
 import sample.cafekioskkotlin.spring.domain.orderProduct.OrderProduct
 import sample.cafekioskkotlin.spring.dto.product.response.ProductResponse
 import java.time.LocalDateTime

@@ -1,7 +1,6 @@
 package sample.cafekioskkotlin.spring.domain.order
 
 import org.assertj.core.api.Assertions.assertThat
-import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import sample.cafekioskkotlin.spring.domain.product.Product
@@ -23,8 +22,7 @@ class OrderTest {
 
     @DisplayName("주문 생성 시 상품 리스트에서 주문의 총 금액을 계산한다.")
     @Test
-    fun calculateTotalPrice() {
-        /* given */
+    fun calculateTotalPrice() {/* given */
         val registeredDate = LocalDateTime.now()
         val product1 = createProduct("001", 1000)
         val product2 = createProduct("002", 3000)
@@ -42,8 +40,7 @@ class OrderTest {
 
     @DisplayName("주문 생성 시 주문 상태는 INIT 이여야 한다. ")
     @Test
-    fun init() {
-        /* given */
+    fun init() {/* given */
         val registeredDate = LocalDateTime.now()
         val product1 = createProduct("001", 1000)
         val product2 = createProduct("002", 3000)
@@ -58,7 +55,6 @@ class OrderTest {
         assertThat(order.orderStatus).isEqualTo(OrderStatus.INIT)
         assertThat(order.registeredDateTime).isEqualTo(registeredDate)
     }
-
 
     private fun createProduct(productNumber: String, price: Int): Product {
         return Product(
