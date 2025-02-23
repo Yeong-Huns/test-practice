@@ -1,9 +1,9 @@
-package sample.cafekioskkotlin.spring.service
+package sample.cafekioskkotlin.spring.service.product
 
 import org.springframework.stereotype.Service
 import sample.cafekioskkotlin.spring.domain.product.ProductSellingType
-import sample.cafekioskkotlin.spring.dto.response.ProductResponse
-import sample.cafekioskkotlin.spring.repository.ProductRepository
+import sample.cafekioskkotlin.spring.dto.product.response.ProductResponse
+import sample.cafekioskkotlin.spring.repository.product.ProductRepository
 
 /**
  *packageName    : sample.cafekioskkotlin.spring.service
@@ -20,7 +20,7 @@ class ProductService (
     private val productRepository: ProductRepository,
 ){
     fun getSellingProduct(): List<ProductResponse>{
-        return productRepository.findAllBySellingStatusIn(ProductSellingType.forDisplay())
-            .map(ProductResponse::fromProduct)
+        return productRepository.findAllBySellingStatusIn(ProductSellingType.Companion.forDisplay())
+            .map(ProductResponse.Companion::fromProduct)
     }
 }

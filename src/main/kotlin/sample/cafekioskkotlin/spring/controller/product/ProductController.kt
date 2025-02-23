@@ -1,10 +1,9 @@
-package sample.cafekioskkotlin.spring.controller
+package sample.cafekioskkotlin.spring.controller.product
 
-import org.springframework.stereotype.Controller
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RestController
-import sample.cafekioskkotlin.spring.dto.response.ProductResponse
-import sample.cafekioskkotlin.spring.service.ProductService
+import sample.cafekioskkotlin.spring.dto.product.response.ProductResponse
+import sample.cafekioskkotlin.spring.service.product.ProductService
 
 /**
  *packageName    : sample.cafekioskkotlin.spring.controller

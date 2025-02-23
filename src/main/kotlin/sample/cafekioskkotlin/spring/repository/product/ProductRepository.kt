@@ -1,4 +1,4 @@
-package sample.cafekioskkotlin.spring.repository
+package sample.cafekioskkotlin.spring.repository.product
 
 import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.stereotype.Repository
@@ -23,4 +23,6 @@ interface ProductRepository: JpaRepository<Product, Long> {
     * where selling_status in ('SELLING' , 'HOLD')
     * */
     fun findAllBySellingStatusIn(sellingStatus :List<ProductSellingType>) : List<Product>
+
+    fun findAllByProductNumberIn (productNumbers :List<String>) : List<Product>
 }

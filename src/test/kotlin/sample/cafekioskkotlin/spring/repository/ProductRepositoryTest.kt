@@ -10,6 +10,7 @@ import org.springframework.test.context.ActiveProfiles
 import sample.cafekioskkotlin.spring.domain.product.Product
 import sample.cafekioskkotlin.spring.domain.product.ProductSellingType
 import sample.cafekioskkotlin.spring.domain.product.ProductType
+import sample.cafekioskkotlin.spring.repository.product.ProductRepository
 
 /**
  *packageName    : sample.cafekioskkotlin.spring.repository
@@ -66,4 +67,47 @@ class ProductRepositoryTest (
                 tuple("002", "카페라떼", ProductSellingType.HOLD)
             )
     }
+
+    @DisplayName("상품 번호 리스트로 상품들을 조회한다.")
+    @Test
+    fun findAllByProductNumberIn() {
+        /* given */
+        val product1 = Product(
+            productNumber = "001",
+            productType = ProductType.HANDMADE,
+            sellingStatus = ProductSellingType.SELLING,
+            name = "아메리카노",
+            price = 4000,
+        )
+        val product2 = Product(
+            productNumber = "002",
+            productType = ProductType.HANDMADE,
+            sellingStatus = ProductSellingType.HOLD,
+            name = "카페라떼",
+            price = 4500,
+        )
+        val product3 = Product(
+            productNumber = "003",
+            productType = ProductType.HANDMADE,
+            sellingStatus = ProductSellingType.STOP_SELLING,
+            name = "팥빙수",
+            price = 7000,
+        )
+        productRepository.saveAll(listOf(product1, product2, product3))
+
+        val productNumbers = listOf("001", "002", "003")
+
+        /* when */
+        val products = productRepository.findAllByProductNumberIn(productNumbers)
+
+        /* then */
+        assertThat(products).hasSize(3)
+            .extracting("productNumber", "name", "price")
+            .containsExactlyInAnyOrder(
+                tuple("001", "아메리카노", 4000),
+                tuple("002", "카페라떼", 4500),
+                tuple("003", "팥빙수", 7000),
+            )
+    }
+
 }
