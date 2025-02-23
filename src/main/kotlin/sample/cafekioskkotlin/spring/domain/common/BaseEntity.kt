@@ -21,7 +21,7 @@ import java.time.LocalDateTime
 @EntityListeners(AuditingEntityListener::class)
 abstract class BaseEntity (
     @CreatedDate
-    val createdDateTime: LocalDateTime? = null,
+    var createdDateTime: LocalDateTime? = null,
 
     @LastModifiedDate
     var modifiedDateTime: LocalDateTime? = null,
