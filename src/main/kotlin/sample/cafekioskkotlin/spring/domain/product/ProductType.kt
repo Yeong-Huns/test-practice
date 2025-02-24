@@ -13,5 +13,11 @@ package sample.cafekioskkotlin.spring.domain.product
 enum class ProductType (private val text: String){
     HANDMADE("제조 음료"),
     BOTTLE("병 음료"),
-    BAKERY("베이커리"),
+    BAKERY("베이커리");
+
+    companion object {
+        fun containsStockType(productType: ProductType): Boolean {
+            return listOf(BOTTLE, BAKERY).contains(productType)
+        }
+    }
 }
