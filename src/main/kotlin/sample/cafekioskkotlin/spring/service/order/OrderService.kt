@@ -5,12 +5,14 @@ import org.springframework.stereotype.Service
 import sample.cafekioskkotlin.spring.domain.order.Order
 import sample.cafekioskkotlin.spring.domain.product.Product
 import sample.cafekioskkotlin.spring.domain.product.ProductType
+import sample.cafekioskkotlin.spring.domain.stock.Stock
 import sample.cafekioskkotlin.spring.dto.order.request.OrderCreateRequest
 import sample.cafekioskkotlin.spring.dto.order.response.OrderResponse
 import sample.cafekioskkotlin.spring.repository.order.OrderRepository
 import sample.cafekioskkotlin.spring.repository.product.ProductRepository
 import sample.cafekioskkotlin.spring.repository.stock.StockRepository
 import java.time.LocalDateTime
+import kotlin.sequences.forEach
 
 /**
  *packageName    : sample.cafekioskkotlin.spring.service.order
@@ -33,15 +35,26 @@ class OrderService (
         val productNumbers = request.productNumbers
         val duplicateProduct = findProductBy(productNumbers)
 
+        deductStockQuantities(duplicateProduct)
+
+        val order = Order.create(duplicateProduct, registeredDate)
+        val savedOrder = orderRepository.save(order)
+
+        return OrderResponse.fromOrder(savedOrder)
+    }
+
+    private fun findProductBy(productNumbers: List<String>) : List<Product> {
+        val products = productRepository.findAllByProductNumberIn(productNumbers)
+        val productMap = products.associateBy(Product::productNumber)
+        return productNumbers.map(productMap::getValue)
+    }
+
+    private fun deductStockQuantities(products: List<Product>){
         /* 재고 차감이 필요한 상품들 check */
-        val stockProductNumbers = duplicateProduct.asSequence()
-            .filter{ProductType.containsStockType(it.productType)}
-            .map(Product::productNumber)
-            .toList()
+        val stockProductNumbers = extractStockProductNumbers(products)
 
         /* Stock 엔티티 조회 */
-        val stocks = stockRepository.findAllByProductNumberIn(stockProductNumbers)
-        val stockMap = stocks.associateBy { it.productNumber }
+        val stockMap = createStockMapBy(stockProductNumbers)
 
         /* 상품별 카운팅 */
         val productCountingMap = stockProductNumbers.asSequence().groupingBy {it}.eachCount()
@@ -55,16 +68,18 @@ class OrderService (
             }
             stock.deductQuantity(quantity);
         }
-
-        val order = Order.create(duplicateProduct, registeredDate)
-        val savedOrder = orderRepository.save(order)
-
-        return OrderResponse.fromOrder(savedOrder)
     }
 
-    private fun findProductBy(productNumbers: List<String>) : List<Product> {
-        val products = productRepository.findAllByProductNumberIn(productNumbers)
-        val productMap = products.associateBy(Product::productNumber)
-        return productNumbers.map(productMap::getValue)
+    private fun extractStockProductNumbers(products: List<Product>) : List<String> {
+        return products.asSequence()
+            .filter{ProductType.containsStockType(it.productType)}
+            .map(Product::productNumber)
+            .toList()
     }
+
+    private fun createStockMapBy(stockProductNumbers: List<String>) : Map<String, Stock>{
+        val stocks = stockRepository.findAllByProductNumberIn(stockProductNumbers)
+        return stocks.associateBy { it.productNumber }
+    }
+
 }
