@@ -8,9 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.test.context.ActiveProfiles
 import org.springframework.transaction.annotation.Transactional
-import sample.cafekioskkotlin.spring.domain.product.Product
-import sample.cafekioskkotlin.spring.domain.product.ProductSellingType
-import sample.cafekioskkotlin.spring.domain.product.ProductType
 import sample.cafekioskkotlin.spring.domain.stock.Stock
 import sample.cafekioskkotlin.spring.repository.stock.StockRepository
 
