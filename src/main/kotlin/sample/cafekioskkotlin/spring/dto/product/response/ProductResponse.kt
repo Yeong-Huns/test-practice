@@ -23,7 +23,7 @@ data class ProductResponse(
     val price: Int,
 ) {
     companion object {
-        fun fromProduct(product: Product) : ProductResponse {
+        fun fromProduct(product: Product): ProductResponse {
             return ProductResponse(
                 id = product.id!!,
                 productNumber = product.productNumber,
@@ -33,7 +33,5 @@ data class ProductResponse(
                 price = product.price,
             )
         }
-
-
     }
 }

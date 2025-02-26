@@ -1,6 +1,7 @@
 package sample.cafekioskkotlin.spring.repository.product
 
 import org.springframework.data.jpa.repository.JpaRepository
+import org.springframework.data.jpa.repository.Query
 import org.springframework.stereotype.Repository
 import sample.cafekioskkotlin.spring.domain.product.Product
 import sample.cafekioskkotlin.spring.domain.product.ProductSellingType
@@ -25,4 +26,7 @@ interface ProductRepository: JpaRepository<Product, Long> {
     fun findAllBySellingStatusIn(sellingStatus :List<ProductSellingType>) : List<Product>
 
     fun findAllByProductNumberIn (productNumbers :List<String>) : List<Product>
+
+    @Query(value = "select p.product_number from product p order by p.id desc limit 1", nativeQuery = true)
+    fun findLatestProductNumber(): String?
 }

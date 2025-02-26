@@ -112,4 +112,49 @@ class ProductRepositoryTest (
             )
     }
 
+    @DisplayName("가장 마지막으로 저장한 상품의 상품번호를 읽어온다.")
+    @Test
+    fun findLatestProductNumber() {
+        /* given */
+        val product1 = Product(
+            productNumber = "001",
+            productType = ProductType.HANDMADE,
+            sellingStatus = ProductSellingType.SELLING,
+            name = "아메리카노",
+            price = 4000,
+        )
+        val product2 = Product(
+            productNumber = "002",
+            productType = ProductType.HANDMADE,
+            sellingStatus = ProductSellingType.HOLD,
+            name = "카페라떼",
+            price = 4500,
+        )
+        val targetProductNumber = "003"
+        val product3 = Product(
+            productNumber = targetProductNumber,
+            productType = ProductType.HANDMADE,
+            sellingStatus = ProductSellingType.STOP_SELLING,
+            name = "팥빙수",
+            price = 7000,
+        )
+        productRepository.saveAll(listOf(product1, product2, product3))
+
+        /* when */
+        val latestProductNumber = productRepository.findLatestProductNumber()
+
+        /* then */
+        assertThat(latestProductNumber).isEqualTo(targetProductNumber)
+    }
+
+    @DisplayName("가장 마지막으로 저장한 상품의 상품번호를 읽어올 때, 상품이 하나도 없는 경우에는 null 을 반환한다.")
+    @Test
+    fun test() {
+        /* when */
+        val latestProductNumber = productRepository.findLatestProductNumber()
+
+        /* then */
+        assertThat(latestProductNumber).isNull()
+    }
+
 }
