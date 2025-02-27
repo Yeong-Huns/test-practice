@@ -18,6 +18,9 @@ import sample.cafekioskkotlin.spring.domain.product.ProductType
  * 2025-02-26        Yeong-Huns       최초 생성
  */
 data class ProductCreateRequest(
+    /* 굳이 코틀린 자체적으로 null-safe 를 보장하는데,
+    타입을 nullable 로 변경하면서 까지 NotNull 밸리데이션을 수행해야할까?
+    일단은 validation 테스트를 위해 억지로 사용 */
     @field:NotNull(message = "상품 타입은 필수입니다.")
     val type: ProductType?,
 

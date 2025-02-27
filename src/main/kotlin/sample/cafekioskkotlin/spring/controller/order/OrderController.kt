@@ -1,5 +1,6 @@
 package sample.cafekioskkotlin.spring.controller.order
 
+import jakarta.validation.Valid
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.PostMapping
@@ -25,7 +26,7 @@ class OrderController(
     private val orderService: OrderService
 ) {
     @PostMapping("/api/v1/orders/new")
-    fun createOrder(@RequestBody request: OrderCreateRequest): ResponseEntity<OrderResponse> {
+    fun createOrder(@Valid @RequestBody request: OrderCreateRequest): ResponseEntity<OrderResponse> {
         val registeredDate = LocalDateTime.now()
         return ResponseEntity.status(HttpStatus.CREATED).body((orderService.createOrder(request, registeredDate)))
     }
