@@ -40,6 +40,13 @@ class Order(
         }
     }
 
+    constructor(products: List<Product>, orderStatus: OrderStatus , registeredDate: LocalDateTime) : this (
+        orderStatus = orderStatus,
+        totalPrice = products.sumOf { it.price },
+        registeredDateTime = registeredDate,
+        orderProducts = mutableListOf()
+    )
+
     constructor(products: List<Product>, registeredDate: LocalDateTime) : this(
         orderStatus = OrderStatus.INIT,
         totalPrice = products.sumOf { it.price },

@@ -44,6 +44,8 @@ dependencies {
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation 'org.jetbrains.kotlin:kotlin-test-junit5'
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+    /* kotlin Mockito */
+    testImplementation("org.mockito.kotlin:mockito-kotlin:4.1.0")
     /* Querydsl */
     implementation 'com.querydsl:querydsl-jpa:5.0.0'
     kapt 'com.querydsl:querydsl-apt:5.0.0:jpa'
