@@ -20,6 +20,10 @@ class MailSendClient {
     fun sendEmail(fromEmail: String, toEmail: String, subject: String, content: String): Boolean{
         logger.info{"메일 전송"}
         throw IllegalArgumentException("메일 전송")
-        return true
     }
+
+    /* Spy 예시를 위한 로그 함수 */
+    fun a()  = logger.info{"A"}
+    fun b()  = logger.info{"b"}
+    fun c()  = logger.info{"c"}
 }
