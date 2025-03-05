@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 import org.mockito.ArgumentMatchers.any
 import org.mockito.ArgumentMatchers.anyString
+import org.mockito.BDDMockito
 import org.mockito.InjectMocks
 import org.mockito.Mock
 import org.mockito.Mockito
@@ -34,11 +35,11 @@ class MailServiceTest {
     @Mock
     private lateinit var mailSendRepository: MailSendRepository
 
-    /*@Mock
-    private lateinit var mailSendClient: MailSendClient*/
-
-    @Spy
+    @Mock
     private lateinit var mailSendClient: MailSendClient
+
+    /*@Spy
+    private lateinit var mailSendClient: MailSendClient*/
 
     @InjectMocks
     private lateinit var mailService: MailService
@@ -69,14 +70,15 @@ class MailServiceTest {
         /* given */
         /* @InjectMocks 어노테이션이 DI(Dependency Injection) 수행 */
         /*val mailService = MailService(mailSendClient, mailSendRepository);*/
-
-        /* Spy 는 when 문법을 사용하지 않는다. */
-        /*`when`(mailSendClient.sendEmail(anyString(), anyString(), anyString(), anyString()))
+        /*
+        `when`(mailSendClient.sendEmail(anyString(), anyString(), anyString(), anyString()))
             .thenReturn(true);*/
-        doReturn(true)
-            .`when`(mailSendClient)
-            .sendEmail(anyString(), anyString(), anyString(), anyString())
-
+        /* Spy 는 when 문법을 사용하지 않는다. */
+        /*     doReturn(true)
+                 .`when`(mailSendClient)
+                 .sendEmail(anyString(), anyString(), anyString(), anyString())*/
+        /* BDD 방식 */
+        BDDMockito.given(mailSendClient.sendEmail(anyString(), anyString(), anyString(), anyString())).willReturn(true);
         /* when */
         val result = mailService.sendMail("","","","")
 
