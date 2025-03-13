@@ -56,6 +56,23 @@ class OrderTest {
         assertThat(order.registeredDateTime).isEqualTo(registeredDate)
     }
 
+    @DisplayName("주문 생성 시 주문 등록 시간을 기록한다.")
+    @Test
+    fun registeredDateTime() {
+        /* given */
+        /* 해당 로직은 등록 시간에 따라서 테스트 결과가 바뀌지 않는데, 이런 경우에는 now() 를 써도 될까? */
+        /* -> 그럼에도 지양해야한다. 한명이 쓰기 시작하면 전염되기 때문 + 로직이 어떻게 변할지 모름 */
+        val registeredDateTime = LocalDateTime.now()
+        val products = listOf(createProduct("001", 1000), createProduct("002", 2000))
+
+        /* when */
+        val order  = Order.create(products, registeredDateTime)
+
+        /* then */
+        assertThat(order.registeredDateTime).isEqualTo(registeredDateTime)
+    }
+
+
     private fun createProduct(productNumber: String, price: Int): Product {
         return Product(
             productNumber = productNumber,

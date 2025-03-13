@@ -114,6 +114,8 @@ class CafeKioskTest {
         /* given */
         val cafeKiosk = CafeKiosk()
         val americano = Americano()
+
+        /* 현재 시간을 파라미터로 분리함으로써 원하는 상황을 완벽하게 연출할 수 있게됨. */
         val testTime = LocalDateTime.of(2025, 2, 22, 10, 0)
 
         /* when */

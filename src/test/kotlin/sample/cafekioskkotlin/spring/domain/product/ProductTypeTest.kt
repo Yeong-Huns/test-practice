@@ -41,4 +41,23 @@ class ProductTypeTest {
         /* then */
         assertThat(result).isTrue()
     }
+
+    @DisplayName("상품 타입이 재고 관련 타입인지를 체크한다.")
+    @Test
+    fun containsStockTypeEx() { /* 한 문단에 한 주제만 담기! (지양하는 것이 좋다) */
+        val productType : Array<ProductType> = ProductType.entries.toTypedArray()
+
+        productType.forEach {
+            if( it == ProductType.HANDMADE){
+                val result = ProductType.containsStockType(it)
+                assertThat(result).isFalse
+            }
+
+            if( it == ProductType.BAKERY || it == ProductType.BOTTLE ){
+                val result = ProductType.containsStockType(it)
+                assertThat(result).isTrue
+            }
+        }
+    }
+
 }

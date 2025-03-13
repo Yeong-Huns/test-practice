@@ -3,7 +3,7 @@ spring:
     default: local # 기본 profile local 지정
 
   datasource:
-    url: jdbc:h2:mem:~/cafeKioskKotlin
+    url: jdbc:h2:mem:~/cafeKioskKotlin;MODE=MySQL
     driver-class-name: org.h2.Driver
     username: sa
     password:
